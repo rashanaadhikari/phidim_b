@@ -1,0 +1,48 @@
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { env } from "../helpers/constants.js";
+
+export const generateOtp = () => {
+  const otp = Math.floor(100000 + Math.random() * 900000);
+  return otp;
+}
+
+export const generateAccessToken = (user) => {
+
+const token = jwt.sign(user,env.JWT_ACCESS_SECRET , { expiresIn: env.JWT_ACCESS_EXPIRES_IN });
+  return token;
+}
+
+export const verifyAccessToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, env.JWT_ACCESS_SECRET);
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+}
+
+export const verifyRefreshToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, env.JWT_REFRESH_SECRET);
+    return decoded;
+  } catch (error) {
+    return null;
+  }
+}
+
+export const generateRefreshToken = (user) => {
+  const token = jwt.sign(user, env.JWT_REFRESH_SECRET, { expiresIn: env.JWT_REFRESH_EXPIRES_IN });
+  return token;
+}
+
+
+export const hashPassword = (password) => {
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+  return hashedPassword;
+}
+
+export const comparePassword = (password, hashedPassword) => {
+  return bcrypt.compareSync(password, hashedPassword);
+}
