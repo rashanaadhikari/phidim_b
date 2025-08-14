@@ -10,7 +10,7 @@ export const userResponsePayload = (user) => {
     if(user.role)data.role = user.role;
     return data;
 }
-
+ 
 
 export const userCreatePayload = (user) => {
     const data = {

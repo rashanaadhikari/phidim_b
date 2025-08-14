@@ -39,7 +39,7 @@ export const authService =async (data)=>{
 
 
 
-    console.log(otp)
+   
     const otpCreated =  await Otp.create({
         email: data.email,
         otp,

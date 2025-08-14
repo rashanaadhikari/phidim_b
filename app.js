@@ -8,6 +8,8 @@ const app = express();
 
 
 import authRoutes from './routes/authRoutes.js'; 
+import skillRoutes from './routes/skillRoutes.js'; 
+import kycRoutes from './routes/kycRoutes.js'; 
 import { isLoggedIn } from './middlewares/authMiddleware.js';
 
 
@@ -19,7 +21,7 @@ app.post('/test/login',isLoggedIn)
 //  await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
 // Sync models (drop and recreate tables if force: true)
-await sequelize.sync({ alter:false});
+await sequelize.sync({ alter:true});
 
 // Enable FK checks again
 // await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
@@ -40,6 +42,9 @@ await sequelize.sync({ alter:false});
   
   //Routes can be defined here
   app.use('/api/auth', authRoutes); 
+  app.use('/api/skill',skillRoutes)
+  app.use('/api/kyc',kycRoutes)
+
 
 
 
