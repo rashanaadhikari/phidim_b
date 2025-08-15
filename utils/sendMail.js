@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import {env} from "../helpers/constants.js";
-import e from "express";
+
 
 // Create a test account or replace with real credentials.
 const transporter = nodemailer.createTransport({

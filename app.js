@@ -21,7 +21,7 @@ app.post('/test/login',isLoggedIn)
 //  await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
 // Sync models (drop and recreate tables if force: true)
-await sequelize.sync({ alter:true});
+await sequelize.sync({ alter:false});
 
 // Enable FK checks again
 // await sequelize.query('SET FOREIGN_KEY_CHECKS = 1');

@@ -31,9 +31,13 @@ Booking.hasMany(Review, { foreignKey: 'bookingId' });
 Review.belongsTo(Booking, { foreignKey: 'bookingId' });
 
 
-//Skill associations with KYC
-Skill.belongsToMany(Kyc,{through: 'KycSkills', foreignKey: 'kycId'});
-Kyc.belongsToMany(Skill, { through: 'KycSkills', foreignKey: 'skillId' });
+
+
+// A KYC can have many Skills
+Kyc.belongsToMany(Skill, { through: 'KycSkills', foreignKey: 'kycId', otherKey: 'skillId' });
+
+// A Skill can belong to many KYC records
+Skill.belongsToMany(Kyc, { through: 'KycSkills', foreignKey: 'skillId', otherKey: 'kycId' });
 
 
 export {

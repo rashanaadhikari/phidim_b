@@ -50,29 +50,26 @@ export const comparePassword = (password, hashedPassword) => {
 
 export const  generateFilenamesFromFiles = (files)=>{
 
+    const fieldnames = Object.keys(files)
 
-const fieldnames = Object.keys(files)
-
-
-
-  const imageArrays = fieldnames.map((fieldname)=>{
-      return files[fieldname]
-  })
-
-
-  const filenames =   imageArrays.map((imageArray)=>{
-            return  (imageArray.map((image)=>{
-               return image.filename
-            }))
-         
+    const imageArrays = fieldnames.map((fieldname)=>{
+        return files[fieldname]
     })
+
+
+    const filenames =   imageArrays.map((imageArray)=>{
+              return  (imageArray.map((image)=>{
+                return image.filename
+              }))
+          
+      })
     
     
     const pairs = fieldnames.map((fieldname,index)=>{
         return [fieldname,filenames[index]]
     })
-    
-    return Object.fromEntries(pairs)
+   const hello = ( Object.fromEntries(pairs))
+    return hello
     
     
 

@@ -1,36 +1,27 @@
 import express from "express";
-import { createKyc } from "../controllers/kycController.js";
+import { approveKyc, createKyc, deleteKyc, getAllKyc, getKycById, getKycByUser, requestUpdateKyc } from "../controllers/kycController.js";
 import { upload } from "../utils/storage.js";
-import { generateFilenamesFromFiles } from "../utils/generate.js";
+import { isLoggedIn, isWorker } from "../middlewares/authMiddleware.js";
 
 
 
 
 const router = express.Router();
 
-
-router.get('/create',createKyc)
-
-router.post('/test',upload.fields([
-  { name: 'skillImage', maxCount: 3 },
-  { name: 'identityImage', maxCount: 2 }
-]),(req,res)=>{
-    // console.log(req.files,req.body)
-    
+const imageField = [
+  { name: 'skillImages', maxCount: 3 },
+  { name: 'identityImages', maxCount: 2 }
+]
 
 
+router.post('/create',isLoggedIn,upload.fields(imageField),createKyc)
+router.put('/requestUpdate',isLoggedIn,upload.fields(imageField),requestUpdateKyc)
+router.put('/approve/:kycId',approveKyc)
+router.get('/byUser',isWorker,getKycByUser)
+router.get('/getAll',getAllKyc)
+router.delete('/deleteKyc',deleteKyc)
+router.get('/:kycId',getKycById)
 
-
-
-const files = req.files
-
-    const {skillImage,identityImage} = generateFilenamesFromFiles(files)
-
-    
-
-    res.json({skillImage,identityImage})
-   
-})
 
 
 export default router;

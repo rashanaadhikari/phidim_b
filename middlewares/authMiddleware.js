@@ -7,7 +7,9 @@ export const isLoggedIn = (req, res, next) => {
         const accessToken = req.headers.authorization 
 
         const  decoded=  verifyAccessToken(accessToken);
-
+         if(!decoded){
+            return res.status(403).json({message : "Login Required"})
+        }
         console.log("Decoded token:", decoded);
 
         req.user = decoded;
@@ -25,6 +27,8 @@ export const isAdmin = (req, res, next) => {
         const accessToken = req.headers.authorization;
 
         const decoded = verifyAccessToken(accessToken);
+        
+       
 
         if (!decoded || decoded.role !== 'admin') {
             return res.status(403).json({ message: "Forbidden: Admins only" });
