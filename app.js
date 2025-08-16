@@ -10,14 +10,17 @@ const app = express();
 import authRoutes from './routes/authRoutes.js'; 
 import skillRoutes from './routes/skillRoutes.js'; 
 import kycRoutes from './routes/kycRoutes.js'; 
-import { isLoggedIn } from './middlewares/authMiddleware.js';
+import  bookingRoutes from './routes/bookingRoutes.js'
+
+
+
 
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.post('/test/login',isLoggedIn)
+
 //  await sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
 
 // Sync models (drop and recreate tables if force: true)
@@ -44,7 +47,7 @@ await sequelize.sync({ alter:false});
   app.use('/api/auth', authRoutes); 
   app.use('/api/skill',skillRoutes)
   app.use('/api/kyc',kycRoutes)
-
+  app.use('/api/booking',bookingRoutes)
 
 
 

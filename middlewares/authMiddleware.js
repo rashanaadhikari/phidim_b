@@ -28,7 +28,6 @@ export const isAdmin = (req, res, next) => {
 
         const decoded = verifyAccessToken(accessToken);
         
-       
 
         if (!decoded || decoded.role !== 'admin') {
             return res.status(403).json({ message: "Forbidden: Admins only" });
